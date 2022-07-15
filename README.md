@@ -36,7 +36,7 @@ MARIADB_DATABASE | Cria o banco de dados para o GLPI
 MARIADB_USER | Cria o usuário do banco de dados do GLPI
 MARIADB_PASSWORD | Cria a senha para o banco de dados do GLPI
 
-Esse comando o **MariaDB Server** com a senha de root **_senhaderootmariadb_,** vai criar um banco de dados chamado **_glpi_**, com o usuário **_glpi_** e senha **_senhadousuarioglpi_**.
+Esse comando sobe o **MariaDB Server** com a senha de root **_senhaderootmariadb_,**  cria um banco de dados chamado **_glpi_**, com o usuário **_glpi_** e senha **_senhadousuarioglpi_**.
 
 <h3>Subindo o contêiner do GLPI</h3>
 
