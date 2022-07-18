@@ -46,6 +46,8 @@ docker run -d --name='glpi' \
      --link='mariadb:mariadb' \
      -e TIMEZONE='America/Sao_Paulo' \
      -e VERSION='10.0.2' \
+     -e UPLOAD_MAX_FILESIZE='50M' \
+     -e POST_MAX_FILESIZE='30M' \
      -v /srv/glpi:/var/www/html \
      -p 80:80 \
 --restart=always aprendendolinux/glpi:latest
