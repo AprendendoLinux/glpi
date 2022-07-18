@@ -57,6 +57,8 @@ Variável | Função
 :---: | :---:
 TIMEZONE | Define a [**TimeZone**](https://www.php.net/manual/pt_BR/timezones.php) do GLPI
 VERSION | Define a [**versão**](https://github.com/glpi-project/glpi/releases/) desejada do GLPI
+UPLOAD_MAX_FILESIZE | Tamanho máximo do anexo (o padrão é 2 megas)
+POST_MAX_FILESIZE | Tamanho máximo do post (o padrão é 8 megas)
 
 <h3>Agora o GLPI encontra-se pré instalado. Vamos acessa-lo para finalizar as configurações:</h3>
 
@@ -81,7 +83,7 @@ _Usuário_ | _Senha_ | _Função_
 `glpi` | `glpi` | Super Administrador
 `tech` | `tech` | Conta do Técnico
 `normal` | `normal` | Conta do Usuário
-`post-only` | `postonly` |Conta somente para postar
+`post-only` | `postonly` | Conta somente para postar
 
 A sugestão é que se faça o primeiro login com o usuário **glpi** e altere a senha de todos os usuários.
 
