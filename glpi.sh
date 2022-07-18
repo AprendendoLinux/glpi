@@ -10,15 +10,9 @@ if [[ -z "$TIMEZONE" ]]; then echo "O TIMEZONE nao esta definido";
 		rm /etc/localtime && ln -s /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 fi
 
-
 if [[ -z "$UPLOAD_MAX_FILESIZE" ]];
 then 
-		echo "O UPLOAD_MAX_FILESIZE nao esta definido"
-		export dbhost=$(cat /var/www/html/config/config_db.php | grep dbhost | awk '{print $4}' | cut -d"'" -f2)
-		export dbuser=$(cat /var/www/html/config/config_db.php | grep dbuser | awk '{print $4}' | cut -d"'" -f2)
-		export dbpassword=$(cat /var/www/html/config/config_db.php | grep dbpassword | awk '{print $4}' | cut -d"'" -f2)
-		export dbdefault=$(cat /var/www/html/config/config_db.php | grep dbdefault | awk '{print $4}' | cut -d"'" -f2)
-		mysql -h''$dbhost'' -u''$dbuser'' -p''$dbpassword'' -e "UPDATE $dbdefault.glpi_configs SET value = 2 WHERE glpi_configs.id = 220"
+		php /opt/default_upload_max_filesize.php
 
 	else
 		sed -i "s/2M/$UPLOAD_MAX_FILESIZE/" /etc/php/7.4/apache2/php.ini \
@@ -27,12 +21,7 @@ then
 		&& sed -i "s/2M/$UPLOAD_MAX_FILESIZE/" /usr/lib/php/7.4/php.ini-production \
 		&& sed -i "s/2M/$UPLOAD_MAX_FILESIZE/" /usr/lib/php/7.4/php.ini-production.cli \
 		&& sed -i "s/2M/$UPLOAD_MAX_FILESIZE/" /usr/lib/php/7.4/php.ini-production.cli
-		export dbhost=$(cat /var/www/html/config/config_db.php | grep dbhost | awk '{print $4}' | cut -d"'" -f2)
-		export dbuser=$(cat /var/www/html/config/config_db.php | grep dbuser | awk '{print $4}' | cut -d"'" -f2)
-		export dbpassword=$(cat /var/www/html/config/config_db.php | grep dbpassword | awk '{print $4}' | cut -d"'" -f2)
-		export dbdefault=$(cat /var/www/html/config/config_db.php | grep dbdefault | awk '{print $4}' | cut -d"'" -f2)
-		export valor=$(cat /etc/php/7.4/apache2/php.ini | grep max_filesize | awk '{print $3}' | cut -d'M' -f1)
-		mysql -h''$dbhost'' -u''$dbuser'' -p''$dbpassword'' -e "UPDATE $dbdefault.glpi_configs SET value = $valor WHERE glpi_configs.id = 220"
+		php /opt/change_upload_max_filesize.php
 fi
 
 if [[ -z "$POST_MAX_FILESIZE" ]]; then echo "O POST_MAX_FILESIZE nao esta definido";

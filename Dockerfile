@@ -5,7 +5,7 @@ RUN apt update && apt dist-upgrade -y && apt autoremove -y \
 	&& apt install --yes --no-install-recommends apache2 php php-mysql php-ldap \
 	php-xmlrpc php-imap curl php-curl php-gd php-mbstring php-xml php-apcu-bc \
 	php-cas php-intl php-zip php-bz2 cron wget ca-certificates jq libldap-2.4-2 \
-	libldap-common libsasl2-2 libsasl2-modules libsasl2-modules-db mariadb-client && \
+	libldap-common libsasl2-2 libsasl2-modules libsasl2-modules-db && \
 	apt-get clean all && rm -rf /var/lib/apt/lists/* && \
 	ln -sf /dev/stdout /var/log/apache2/access.log && \
 	ln -sf /dev/stderr /var/log/apache2/error.log && \
@@ -13,7 +13,7 @@ RUN apt update && apt dist-upgrade -y && apt autoremove -y \
 	echo "ServerSignature Off" >> /etc/apache2/apache2.conf \
 	&& rm -f /var/www/html/index.html
 
-COPY glpi.sh /opt/
+COPY glpi.sh change_upload_max_filesize.php default_upload_max_filesize.php /opt/
 COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
 RUN chmod +x /opt/glpi.sh
 
