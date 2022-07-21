@@ -11,8 +11,8 @@ Partirei do do suposto que você já tenha o docker instalado e configurado, mas
 <h3>Preparando o ambiente para usar a imagem: </h3>
 
 ~~~bash
-mkdir -p /srv/mariadb /srv/glpi
-~~~
+docker volume create mariadb && docker volume create glpi
+ ~~~
 
 <h3>Subindo o contêiner do banco de dados (necessário para o GLPI funcionar):</h3>
 
@@ -23,7 +23,7 @@ docker run -d --name='mariadb' \
      -e MARIADB_DATABASE='glpi' \
      -e MARIADB_USER='glpi' \
      -e MARIADB_PASSWORD='senhadousuarioglpi' \
-     -v /srv/mariadb:/var/lib/mysql \
+     -v mariadb:/var/lib/mysql \
 --restart=always mariadb:latest
 ~~~
 
@@ -48,7 +48,7 @@ docker run -d --name='glpi' \
      -e VERSION='10.0.2' \
      -e UPLOAD_MAX_FILESIZE='50M' \
      -e POST_MAX_FILESIZE='30M' \
-     -v /srv/glpi:/var/www/html \
+     -v glpi:/var/www/html \
      -p 80:80 \
 --restart=always aprendendolinux/glpi:latest
 ~~~
