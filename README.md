@@ -62,6 +62,48 @@ VERSION | Define a [**versão**](https://github.com/glpi-project/glpi/releases/)
 UPLOAD_MAX_FILESIZE | Tamanho máximo do anexo (o padrão é 2 megas)
 POST_MAX_FILESIZE | Tamanho máximo do post (o padrão é 8 megas)
 
+Também é possível iniciar a partir de um arquivo **docker-composer.yml**. Segue o conteúdo abaixo:
+~~~~composer
+version: "3.7"
+
+services:
+
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    container_name: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: 'senhaderootmariadb'
+      MARIADB_DATABASE: 'glpi'
+      MARIADB_USER: 'glpi'
+      MARIADB_PASSWORD: 'senhadousuarioglpi'
+    volumes:
+    - mariadb:/var/lib/mysql
+    ports:
+    - "3306:3306"
+  
+  glpi:
+    image: aprendendolinux/glpi
+    restart: always
+    depends_on:
+      - mariadb
+    links:
+      - "mariadb:mariadb"
+    container_name: glpi
+    environment:
+      TIMEZONE: "America/Sao_Paulo"
+      VERSION: 10.0.2
+      UPLOAD_MAX_FILESIZE: 100M
+      POST_MAX_FILESIZE: 50M
+    volumes:
+      - glpi:/var/www/html
+    ports:
+      - "80:80"
+volumes:
+  mariadb:
+  glpi:
+~~~~
+
 <h3>Agora o GLPI encontra-se pré instalado. Vamos acessa-lo para finalizar as configurações:</h3>
 
 <http://127.0.0.1/> ou <http://ip-do-servidor/>
