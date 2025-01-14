@@ -64,10 +64,7 @@ POST_MAX_FILESIZE | Tamanho máximo do post (o padrão é 8 megas)
 
 Também é possível iniciar a partir de um arquivo **docker-composer.yml**. Segue o conteúdo abaixo:
 ~~~~composer
-version: "3.7"
-
 services:
-
   mariadb:
     image: mariadb:latest
     restart: always
@@ -92,7 +89,7 @@ services:
     container_name: glpi
     environment:
       TIMEZONE: "America/Sao_Paulo"
-      VERSION: 10.0.2
+      VERSION: 10.0.7
       UPLOAD_MAX_FILESIZE: 100M
       POST_MAX_FILESIZE: 50M
     volumes:
