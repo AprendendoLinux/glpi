@@ -1,7 +1,4 @@
-version: "3.7"
-
 services:
-
   mariadb:
     image: mariadb:latest
     restart: always
@@ -12,27 +9,33 @@ services:
       MARIADB_USER: 'glpi'
       MARIADB_PASSWORD: 'senhadousuarioglpi'
     volumes:
-    - mariadb:/var/lib/mysql
+    - /srv/glpi/db:/var/lib/mysql
     ports:
     - "3306:3306"
   
   glpi:
-    image: aprendendolinux/glpi
+    image: aprendendolinux/glpi:latest
     restart: always
     depends_on:
       - mariadb
-    links:
-      - "mariadb:mariadb"
     container_name: glpi
     environment:
       TIMEZONE: "America/Sao_Paulo"
-      VERSION: 10.0.2
-      UPLOAD_MAX_FILESIZE: 100M
+      VERSION: 10.0.17
+      UPLOAD_MAX_FILESIZE: 512M
       POST_MAX_FILESIZE: 50M
     volumes:
-      - glpi:/var/www/html
+      - /srv/glpi/web:/var/www/html
     ports:
-      - "80:80"
-volumes:
-  mariadb:
-  glpi:
+      - "8080:80"
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    depends_on:
+      - mariadb
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mariadb
+    ports:
+      - "8090:80"
